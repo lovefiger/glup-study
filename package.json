@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "postinstall": "node npm-scripts.js postinstall"
+  },
   "devDependencies": {
     "browser-sync": "^2.28.3",
     "gulp": "^4.0.2",
