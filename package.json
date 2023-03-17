@@ -2,13 +2,31 @@
   "name": "glup-study",
   "version": "3.10.5",
   "description": "",
-  "main": "index.js",
+  "main": "node/lib/index.js",
+  "types": "node/lib/index.d.ts",
   "scripts": {
-    "postinstall": "node npm-scripts.js postinstall"
+    "prepare": "node npm-scripts.js prepare",
+    "postinstall": "node npm-scripts.js postinstall",
+    "typescript:build": "node npm-scripts.js typescript:build",
+    "typescript:watch": "node npm-scripts.js typescript:watch",
+    "worker:build": "node npm-scripts.js worker:build",
+    "lint": "npm run lint:node && npm run lint:worker",
+    "lint:node": "node npm-scripts.js lint:node",
+    "lint:worker": "node npm-scripts.js lint:worker",
+    "format:worker": "node npm-scripts.js format:worker",
+    "test": "npm run test:node && npm run test:worker",
+    "test:node": "node npm-scripts.js test:node",
+    "test:worker": "node npm-scripts.js test:worker",
+    "coverage:node": "node npm-scripts.js coverage:node",
+    "install-deps:node": "node npm-scripts.js install-deps:node",
+    "install-clang-tools": "node npm-scripts.js install-clang-tools",
+    "release:check": "node npm-scripts.js release:check",
+    "release": "node npm-scripts.js release"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^18.15.3",
     "browser-sync": "^2.28.3",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.3.0",
@@ -16,6 +34,8 @@
     "gulp-jshint": "^2.1.0",
     "gulp-less": "^5.0.0",
     "gulp-rename": "^2.0.0",
-    "gulp-uglify": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "tsc-watch": "^6.0.0",
+    "typescript": "^5.0.2"
   }
 }

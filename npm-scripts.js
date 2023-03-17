@@ -29,12 +29,152 @@ console.log(`**************************************************process.env.MAKE"
 console.log(`npm-scripts.js [INFO] running task "${task}"`);
 
 switch (task) {
+    case 'prepare':
+    {
+        buildTypescript(/* force */ false);
+
+        break;
+    }
+
     case 'typescript:build':
-        console.log('*********************************************************typescript:build');
+    {
+        console.log(`**************************************************************************typescript:build`)
+
         break;
+    }
+
+    case 'typescript:watch':
+    {
+        console.log(`**************************************************************************typescript:watch`)
+
+        break;
+    }
+
+    case 'worker:build':
+    {
+        console.log(`**************************************************************************worker:build`)
+
+        break;
+    }
+
+    case 'lint:node':
+    {
+        console.log(`**************************************************************************lint:node`)
+        break;
+    }
+
+    case 'lint:worker':
+    {
+        console.log(`**************************************************************************lint:worker`)
+
+        break;
+    }
+
+    case 'format:worker':
+    {
+        console.log(`**************************************************************************format:worker`)
+
+        break;
+    }
+
+    case 'test:node':
+    {
+        console.log(`**************************************************************************test:node`)
+
+        break;
+    }
+
+    case 'test:worker':
+    {
+        console.log(`**************************************************************************test:worker`)
+        break;
+    }
+
+    case 'coverage':
+    {
+        console.log(`**************************************************************************coverage`)
+        break;
+    }
+
     case 'postinstall':
-        console.log('*********************************************************postinstall');
+    {
+        console.log(`**************************************************************************postinstall`)
+
         break;
+    }
+
+    case 'release':
+    {
+        console.log(`**************************************************************************release`)
+        break;
+    }
+
+    case 'install-clang-tools':
+    {
+        console.log(`**************************************************************************install-clang-tools`)
+
+        break;
+    }
+
     default:
-        console.log('*********************************************************default');
+    {
+        console.log(`**************************************************************************default`)
+    }
+}
+
+function buildTypescript(force = false)
+{
+    if (!force && fs.existsSync('node/lib'))
+    {
+        return;
+    }
+
+    console.log('npm-scripts.js [INFO] buildTypescript()');
+
+    deleteNodeLib();
+
+    executeCmd('tsc --project node');
+}
+
+function deleteNodeLib()
+{
+    if (!fs.existsSync('node/lib'))
+    {
+        return;
+    }
+
+    console.log('npm-scripts.js [INFO] deleteNodeLib()');
+
+    if (!isWindows)
+    {
+        executeCmd('rm -rf node/lib');
+    }
+    else
+    {
+        // NOTE: This command fails in Windows if the dir doesn't exist.
+        executeCmd('rmdir /s /q "node/lib"', /* exitOnError */ false);
+    }
+}
+
+function executeCmd(command, exitOnError = true)
+{
+    console.log(`npm-scripts.js [INFO] executeCmd(): ${command}`);
+
+    try
+    {
+        execSync(command, { stdio: [ 'ignore', process.stdout, process.stderr ] });
+    }
+    catch (error)
+    {
+        if (exitOnError)
+        {
+            console.error(`npm-scripts.js [ERROR] executeCmd() failed, exiting: ${error}`);
+
+            process.exit(1);
+        }
+        else
+        {
+            console.log(`npm-scripts.js [INFO] executeCmd() failed, ignoring: ${error}`);
+        }
+    }
 }
