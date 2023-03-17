@@ -24,7 +24,6 @@ const MAYOR_VERSION = version.split('.')[0];
 
 // make command to use. 不同系统使用不同编译工具
 const MAKE = process.env.MAKE || (isFreeBSD ? 'gmake' : 'make');
-console.log(`**************************************************process.env.MAKE"process.argv"`);
 
 console.log(`npm-scripts.js [INFO] running task "${task}"`);
 
