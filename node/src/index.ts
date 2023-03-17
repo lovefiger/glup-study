@@ -4,5 +4,5 @@
  * Create a Worker.
  */
 export function createWorker(){
-	console.log('*********************************');
+	console.log('*********************************createWorker');
 }
